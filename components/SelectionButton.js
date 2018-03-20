@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, StyleSheet, TouchableHighlight } from 'react-native';
+import { Text, View, StyleSheet, TouchableHighlight, Dimensions } from 'react-native';
 
 export default class SelectionButton extends React.Component {
   constructor(props) {
@@ -12,7 +12,7 @@ export default class SelectionButton extends React.Component {
         activeOpacity={1}
         underlayColor='white'
         onPress={() => this.props.onSelection(this.props.selectionType) } >
-        <View style={this.props.pressStatus ? styles.ButtonDown : styles.playButtonUp} >
+        <View style={this.props.pressStatus ? styles.buttonDown : styles.buttonUp} >
           <Text style={this.props.pressStatus ? styles.playTextDown : styles.playTextUp}>button</Text>
         </View>
       </TouchableHighlight>
@@ -21,12 +21,19 @@ export default class SelectionButton extends React.Component {
 }
 
 const styles = StyleSheet.create({
-  infoText: {
-    fontWeight: 'bold',
+  buttonDown: {
+    flex: 1,
+    width: Dimensions.get('window').width/3,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderWidth: 1,
+    borderColor: 'black'
   },
 
-  barContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-around'
+  buttonUp: {
+    flex: 1,
+    width: Dimensions.get('window').width/3,
+    justifyContent: 'center',
+    alignItems: 'center',
   }
 });

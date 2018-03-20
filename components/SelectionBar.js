@@ -14,23 +14,17 @@ export default class SelectionBar extends React.Component {
   render() {
     return (
       <View style={styles.barContainer}>
-        <SelectionButton onSelection={this.handleSelection} selectionType='square' />
-        <SelectionButton onSelection={this.handleSelection} selectionType='circle' />
-        <SelectionButton onSelection={this.handleSelection} selectionType='triangle' />
+        <SelectionButton onSelection={this.handleSelection} selectionType='square' pressStatus={true} />
+        <SelectionButton onSelection={this.handleSelection} selectionType='circle' pressStatus={false} />
+        <SelectionButton onSelection={this.handleSelection} selectionType='triangle' pressStatus={false} />
       </View>
     )
   }
 }
 
 const styles = StyleSheet.create({
-  infoText: {
-    fontWeight: 'bold',
-  },
-
   barContainer: {
     flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    alignItems: 'center'
+    flexDirection: 'row'
   }
 });
