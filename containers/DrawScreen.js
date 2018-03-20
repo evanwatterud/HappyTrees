@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View, PanResponder } from 'react-native';
+import SelectionBar from '../components/SelectionBar.js';
 
 export default class DrawScreen extends React.Component {
   constructor(props) {
@@ -37,9 +38,14 @@ export default class DrawScreen extends React.Component {
 
   render() {
     return (
-      <View style={{
-        flex: 1
-      }} {...this._panResponder.panHandlers} >
+      <View style={{ flex: 1 }} >
+        <View style={{
+          flex: .925
+        }} {...this._panResponder.panHandlers} >
+        </View>
+        <View style={{ flex: .075 }} >
+          <SelectionBar />
+        </View>
       </View>
     );
   }
