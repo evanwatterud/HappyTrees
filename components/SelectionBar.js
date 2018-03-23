@@ -15,8 +15,8 @@ export default class SelectionBar extends React.Component {
     return (
       <View style={styles.barContainer}>
         <SelectionButton onSelection={this.handleSelection} selectionType='square' pressStatus={true} />
-        <SelectionButton onSelection={this.handleSelection} selectionType='circle' pressStatus={false} />
-        <SelectionButton onSelection={this.handleSelection} selectionType='triangle' pressStatus={false} />
+        <SelectionButton onSelection={this.handleSelection} selectionType='circle' pressStatus={true} />
+        <SelectionButton onSelection={this.handleSelection} selectionType='triangle' pressStatus={true} />
       </View>
     )
   }
