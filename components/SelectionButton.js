@@ -39,8 +39,7 @@ const styles = StyleSheet.create({
     width: Dimensions.get('window').width/4,
     justifyContent: 'center',
     alignItems: 'center',
-    borderWidth: 1,
-    borderColor: 'black'
+    backgroundColor: 'lightsteelblue'
   },
 
   buttonUp: {

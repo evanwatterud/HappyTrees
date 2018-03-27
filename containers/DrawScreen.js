@@ -6,7 +6,9 @@ import { Svg } from 'expo'
 export default class DrawScreen extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {  };
+    this.state = {
+      selectedType: 'square'
+    };
   }
 
   componentWillMount() {
@@ -37,6 +39,13 @@ export default class DrawScreen extends React.Component {
     })
   }
 
+  handleTypeSelection = (selectionType) => {
+    this.setState(prevState => {
+      prevState.selectedType = selectionType
+      return prevState
+    })
+  }
+
   render() {
     return (
       <View style={{ flex: 1 }} >
@@ -45,7 +54,7 @@ export default class DrawScreen extends React.Component {
         }} {...this._panResponder.panHandlers} >
         </View>
         <View style={{ flex: .075 }} >
-          <SelectionBar />
+          <SelectionBar onSelection={this.handleTypeSelection}/>
         </View>
       </View>
     );
