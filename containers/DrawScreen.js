@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View, PanResponder } from 'react-native';
-import SelectionBar from '../components/SelectionBar.js';
+import TypeSelectionBar from '../components/TypeSelectionBar.js';
 import { Svg } from 'expo'
 
 export default class DrawScreen extends React.Component {
@@ -54,7 +54,7 @@ export default class DrawScreen extends React.Component {
         }} {...this._panResponder.panHandlers} >
         </View>
         <View style={{ flex: .075 }} >
-          <SelectionBar onSelection={this.handleTypeSelection}/>
+          <TypeSelectionBar onSelection={this.handleTypeSelection}/>
         </View>
       </View>
     );

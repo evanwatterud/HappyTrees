@@ -1,8 +1,8 @@
 import React from 'react';
 import { Text, View, StyleSheet } from 'react-native';
-import SelectionButton from './SelectionButton.js';
+import TypeSelectionButton from './TypeSelectionButton.js';
 
-export default class SelectionBar extends React.Component {
+export default class TypeSelectionBar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -33,10 +33,10 @@ export default class SelectionBar extends React.Component {
   render() {
     return (
       <View style={styles.barContainer}>
-        <SelectionButton onSelection={this.handleSelection} selectionType='square' pressStatus={this.state.square} />
-        <SelectionButton onSelection={this.handleSelection} selectionType='circle' pressStatus={this.state.circle} />
-        <SelectionButton onSelection={this.handleSelection} selectionType='triangle' pressStatus={this.state.triangle} />
-        <SelectionButton onSelection={this.handleSelection} selectionType='line' pressStatus={this.state.line} />
+        <TypeSelectionButton onSelection={this.handleSelection} selectionType='square' pressStatus={this.state.square} />
+        <TypeSelectionButton onSelection={this.handleSelection} selectionType='circle' pressStatus={this.state.circle} />
+        <TypeSelectionButton onSelection={this.handleSelection} selectionType='triangle' pressStatus={this.state.triangle} />
+        <TypeSelectionButton onSelection={this.handleSelection} selectionType='line' pressStatus={this.state.line} />
       </View>
     )
   }

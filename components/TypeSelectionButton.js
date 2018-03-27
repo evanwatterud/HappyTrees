@@ -2,7 +2,7 @@ import React from 'react';
 import { Text, View, StyleSheet, TouchableHighlight, Dimensions } from 'react-native';
 import { Svg } from 'expo';
 
-export default class SelectionButton extends React.Component {
+export default class TypeSelectionButton extends React.Component {
   constructor(props) {
     super(props);
   }
