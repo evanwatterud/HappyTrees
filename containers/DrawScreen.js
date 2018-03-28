@@ -1,13 +1,15 @@
 import React from 'react';
 import { StyleSheet, Text, View, PanResponder } from 'react-native';
 import TypeSelectionBar from '../components/TypeSelectionBar.js';
+import ColorSelectionBar from '../components/ColorSelectionBar.js';
 import { Svg } from 'expo'
 
 export default class DrawScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedType: 'square'
+      selectedType: 'square',
+      selectedColor: 'black'
     };
   }
 
@@ -46,15 +48,25 @@ export default class DrawScreen extends React.Component {
     })
   }
 
+  handleColorSelection = (selectionColor) => {
+    this.setState(prevState => {
+      prevState.selectedColor = selectionColor
+      return prevState
+    })
+  }
+
   render() {
     return (
       <View style={{ flex: 1 }} >
+        <View style={{ flex: .10 }} >
+          <ColorSelectionBar onSelection={this.handleColorSelection} />
+        </View>
         <View style={{
-          flex: .925
+          flex: .825
         }} {...this._panResponder.panHandlers} >
         </View>
         <View style={{ flex: .075 }} >
-          <TypeSelectionBar onSelection={this.handleTypeSelection}/>
+          <TypeSelectionBar onSelection={this.handleTypeSelection} />
         </View>
       </View>
     );
