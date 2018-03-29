@@ -64,6 +64,10 @@ export default class DrawScreen extends React.Component {
     })
   }
 
+  handleClear = () => {
+    
+  }
+
   render() {
     return (
       <View style={{ flex: 1 }} >
@@ -73,7 +77,7 @@ export default class DrawScreen extends React.Component {
         <View style={{ flex: .825, flexDirection: 'column' }} >
           <View style={{ flex: .9 }} {...this._panResponder.panHandlers} ></View>
           <View style={{ flex: .1 }} >
-            <UtilityBar onSelection={this.handleSizeSelection} />
+            <UtilityBar onSelection={this.handleSizeSelection} onClear={this.handleClear} />
           </View>
         </View>
         <View style={{ flex: .075 }} >

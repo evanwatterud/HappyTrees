@@ -39,8 +39,6 @@ const styles = StyleSheet.create({
   barContainer: {
     flex: 1,
     flexDirection: 'row',
-    borderBottomWidth: 3,
-    borderTopWidth: 2,
     marginTop: 20
   }
 });

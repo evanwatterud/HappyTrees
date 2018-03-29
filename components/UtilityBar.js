@@ -1,6 +1,6 @@
 import React from 'react';
 import { Text, View, StyleSheet } from 'react-native';
-import { Slider } from 'react-native-elements';
+import { Slider, Button } from 'react-native-elements';
 
 export default class UtilityBar extends React.Component {
   constructor(props) {
@@ -16,6 +16,10 @@ export default class UtilityBar extends React.Component {
     this.props.onSelection(selectedSize)
   }
 
+  handleClear = () => {
+    this.props.onClear()
+  }
+
   render() {
     return (
       <View style={styles.barContainer} >
@@ -26,6 +30,12 @@ export default class UtilityBar extends React.Component {
           minimumValue={1}
           onSlidingComplete={this.handleSelection}
           value={this.state.size}
+        />
+        <Button
+          rounded={true}
+          backgroundColor='black'
+          title='Clear'
+          onPress={this.handleClear}
         />
       </View>
     )

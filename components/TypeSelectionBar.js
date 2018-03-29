@@ -46,6 +46,5 @@ const styles = StyleSheet.create({
   barContainer: {
     flex: 1,
     flexDirection: 'row',
-    borderTopWidth: 3
   }
 });
