@@ -2,14 +2,16 @@ import React from 'react';
 import { StyleSheet, Text, View, PanResponder } from 'react-native';
 import TypeSelectionBar from '../components/TypeSelectionBar.js';
 import ColorSelectionBar from '../components/ColorSelectionBar.js';
-import { Svg } from 'expo'
+import UtilityBar from '../components/UtilityBar.js';
+import { Svg } from 'expo';
 
 export default class DrawScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       selectedType: 'square',
-      selectedColor: 'black'
+      selectedColor: 'black',
+      selectedSize: 25
     };
   }
 
@@ -55,15 +57,24 @@ export default class DrawScreen extends React.Component {
     })
   }
 
+  handleSizeSelection = (selectionSize) => {
+    this.setState(prevState => {
+      prevState.selectedSize = selectionSize
+      return prevState
+    })
+  }
+
   render() {
     return (
       <View style={{ flex: 1 }} >
         <View style={{ flex: .10 }} >
           <ColorSelectionBar onSelection={this.handleColorSelection} />
         </View>
-        <View style={{
-          flex: .825
-        }} {...this._panResponder.panHandlers} >
+        <View style={{ flex: .825, flexDirection: 'column' }} >
+          <View style={{ flex: .9 }} {...this._panResponder.panHandlers} ></View>
+          <View style={{ flex: .1 }} >
+            <UtilityBar onSelection={this.handleSizeSelection} />
+          </View>
         </View>
         <View style={{ flex: .075 }} >
           <TypeSelectionBar onSelection={this.handleTypeSelection} />
