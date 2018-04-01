@@ -9,12 +9,15 @@ export default class DrawScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      keys: 0,
       selectedType: 'square',
       selectedColor: 'black',
       selectedSize: 25,
       squares: [],
       circles: [],
-      triangles: []
+      triangles: [],
+      strokes: [],
+      currentPoints: []
     };
   }
 
@@ -53,11 +56,27 @@ export default class DrawScreen extends React.Component {
   }
 
   onResponderGrant(evt) {
+    let locationX, locationY
+    [locationX, locationY] = [evt.nativeEvent.locationX, evt.nativeEvent.locationY]
 
+    if (this.state.selectedType == 'line') {
+      this.setState(prevState => {
+        prevState.currentPoints.push(`M${locationX} ${locationY}`)
+        return prevState
+      })
+    }
   }
 
   onResponderMove(evt) {
+    let locationX, locationY
+    [locationX, locationY] = [evt.nativeEvent.locationX, evt.nativeEvent.locationY]
 
+    if (this.state.selectedType == 'line') {
+      this.setState(prevState => {
+        prevState.currentPoints.push(`L${locationX} ${locationY}`)
+        return prevState
+      })
+    }
   }
 
   onResponderRelease(evt) {
@@ -69,9 +88,17 @@ export default class DrawScreen extends React.Component {
     if (this.state.selectedType == 'square') {
       this.setState(prevState => {
         let square = (
-          <Svg.Rect x={locationX - size/2} y={locationY - size/2} width={size} height={size} fill={color} />
+          <Svg.Rect
+            key={this.state.keys}
+            x={locationX - size/2}
+            y={locationY - size/2}
+            width={size}
+            height={size}
+            fill={color}
+          />
         )
         prevState.squares.push(square)
+        prevState.keys = prevState.keys + 1
         return prevState
       })
     }
@@ -79,9 +106,16 @@ export default class DrawScreen extends React.Component {
     else if (this.state.selectedType == 'circle') {
       this.setState(prevState => {
         let circle = (
-          <Svg.Circle cx={locationX} cy={locationY} r={size/2} fill={color} />
+          <Svg.Circle
+            key={this.state.keys}
+            cx={locationX}
+            cy={locationY}
+            r={size/2}
+            fill={color}
+          />
         )
         prevState.circles.push(circle)
+        prevState.keys = prevState.keys + 1
         return prevState
       })
     }
@@ -95,9 +129,33 @@ export default class DrawScreen extends React.Component {
         let x3 = locationX - size/2
         let y3 = locationY + size/2
         let triangle = (
-          <Svg.Polygon points={`${x1},${y1} ${x2},${y2} ${x3},${y3}`} fill={color} />
+          <Svg.Polygon
+            key={this.state.keys}
+            points={`${x1},${y1} ${x2},${y2} ${x3},${y3}`}
+            fill={color}
+          />
         )
         prevState.triangles.push(triangle)
+        prevState.keys = prevState.keys + 1
+        return prevState
+      })
+    }
+
+    else if (this.state.selectedType == 'line') {
+      let path = (
+        <Svg.Path
+          key={this.state.keys}
+          d={this.concatCurrentPoints()}
+          stroke={color}
+          strokeWidth={size}
+          fill='none'
+        />
+      )
+
+      this.setState(prevState => {
+        prevState.strokes.push(path)
+        prevState.keys = prevState.keys + 1
+        prevState.currentPoints = []
         return prevState
       })
     }
@@ -108,8 +166,19 @@ export default class DrawScreen extends React.Component {
       prevState.squares = []
       prevState.circles = []
       prevState.triangles = []
+      prevState.strokes = []
       return prevState
     })
+  }
+
+  concatCurrentPoints = () => {
+    var path = ''
+    if (this.state.currentPoints.length > 0) {
+      this.state.currentPoints.forEach(point => {
+        path = path + ` ${point}`
+      })
+    }
+    return path
   }
 
   render() {
@@ -124,6 +193,13 @@ export default class DrawScreen extends React.Component {
               {[...this.state.squares]}
               {[...this.state.circles]}
               {[...this.state.triangles]}
+              {[...this.state.strokes]}
+              <Svg.Path
+                d={this.concatCurrentPoints()}
+                stroke={this.state.selectedColor}
+                strokeWidth={this.state.selectedSize}
+                fill='none'
+              />
             </Svg>
           </View>
           <View style={{ flex: .1 }} >
