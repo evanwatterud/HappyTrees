@@ -63,27 +63,41 @@ export default class DrawScreen extends React.Component {
   onResponderRelease(evt) {
     let locationX, locationY
     [locationX, locationY] = [evt.nativeEvent.locationX, evt.nativeEvent.locationY]
+    let size = this.state.selectedSize
+    let color = this.state.selectedColor
 
     if (this.state.selectedType == 'square') {
       this.setState(prevState => {
-        prevState.squares.push({x: locationX, y: locationY, size: this.state.selectedSize, color: this.state.selectedColor})
+        let square = (
+          <Svg.Rect x={locationX - size/2} y={locationY - size/2} width={size} height={size} fill={color} />
+        )
+        prevState.squares.push(square)
         return prevState
       })
-    } else if (this.state.selectedType == 'circle') {
+    }
+
+    else if (this.state.selectedType == 'circle') {
       this.setState(prevState => {
-        prevState.circles.push({x: locationX, y: locationY, size: this.state.selectedSize/2, color: this.state.selectedColor})
+        let circle = (
+          <Svg.Circle cx={locationX} cy={locationY} r={size/2} fill={color} />
+        )
+        prevState.circles.push(circle)
         return prevState
       })
-    } else if (this.state.selectedType == 'triangle') {
+    }
+
+    else if (this.state.selectedType == 'triangle') {
       this.setState(prevState => {
-        var size = this.state.selectedSize
-        var x1 = locationX
-        var y1 = locationY - size/2
-        var x2 = locationX + size/2
-        var y2 = locationY + size/2
-        var x3 = locationX - size/2
-        var y3 = locationY + size/2
-        prevState.triangles.push({x1: x1.toString(), y1: y1.toString(), x2: x2.toString(), y2: y2.toString(), x3: x3.toString(), y3: y3.toString(), color: this.state.selectedColor})
+        let x1 = locationX
+        let y1 = locationY - size/2
+        let x2 = locationX + size/2
+        let y2 = locationY + size/2
+        let x3 = locationX - size/2
+        let y3 = locationY + size/2
+        let triangle = (
+          <Svg.Polygon points={`${x1},${y1} ${x2},${y2} ${x3},${y3}`} fill={color} />
+        )
+        prevState.triangles.push(triangle)
         return prevState
       })
     }
@@ -99,18 +113,6 @@ export default class DrawScreen extends React.Component {
   }
 
   render() {
-    var squares = this.state.squares.map(
-      (square) => <Svg.Rect x={square.x - square.size/2} y={square.y - square.size/2} width={square.size} height={square.size} fill={square.color} />
-    )
-
-    var circles = this.state.circles.map(
-      (circle) => <Svg.Circle cx={circle.x} cy={circle.y} r={circle.size} fill={circle.color} />
-    )
-
-    var triangles = this.state.triangles.map(
-      (triangle) => <Svg.Polygon points={triangle.x1 + ',' + triangle.y1 + ' ' + triangle.x2 + ',' + triangle.y2 + ' ' + triangle.x3 + ',' + triangle.y3} fill={triangle.color} />
-    )
-
     return (
       <View style={{ flex: 1 }} >
         <View style={{ flex: .10 }} >
@@ -119,9 +121,9 @@ export default class DrawScreen extends React.Component {
         <View style={{ flex: .825, flexDirection: 'column' }} >
           <View style={{ flex: .9 }} {...this._panResponder.panHandlers} >
             <Svg style={{flex: 1}}>
-              {squares}
-              {circles}
-              {triangles}
+              {[...this.state.squares]}
+              {[...this.state.circles]}
+              {[...this.state.triangles]}
             </Svg>
           </View>
           <View style={{ flex: .1 }} >
